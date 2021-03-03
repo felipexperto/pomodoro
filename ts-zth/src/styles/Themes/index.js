@@ -1,5 +1,9 @@
 const colors = {
   white: '#fff',
+  purple: '#1f2140',
+  darkPurple: '#161a33',
+  salmon: '#f87071',
+  gray: '#4e526a',
 };
 
 const fonts = {

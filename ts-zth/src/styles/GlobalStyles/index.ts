@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    background-color: ${theme.main.colors.purple};
     margin: 0;
     padding: 0;
   }

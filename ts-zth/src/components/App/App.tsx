@@ -8,7 +8,7 @@ function App(): JSX.Element {
   return (
     <S.Container>
       <S.MainTitle>pomodoro</S.MainTitle>
-      <Tabs />
+      <Tabs activeItem={1} />
       <Clock />
     </S.Container>
   );
