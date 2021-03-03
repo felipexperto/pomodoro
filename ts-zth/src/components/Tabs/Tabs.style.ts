@@ -22,6 +22,7 @@ export const Tabs = styled.ol<{positionOfActiveItem: number}>`
 export const Tab = styled.li`
   border-radius: 100rem;
   color: ${({ theme }) => theme.colors.gray};
+  cursor: default;
   display: inline-block;
   padding: 12px 24px;
 `;
