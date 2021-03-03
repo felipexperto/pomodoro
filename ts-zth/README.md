@@ -8,6 +8,7 @@
 - [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)
 - [Typescript Playground](https://www.typescriptlang.org/play)
 - [Introdução às referências do TSConfig](https://www.typescriptlang.org/pt/tsconfig)
+- [React+TypeScript Cheatsheets](https://github.com/typescript-cheatsheets/react)
 
 ----
 
