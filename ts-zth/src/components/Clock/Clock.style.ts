@@ -49,17 +49,23 @@ export const Button = styled.button<{
   appearance: none;
   background-color: transparent;
   border: 0;
+  border-radius: 4px;
   color: ${({ theme }) => theme.colors.lightGray};
+  cursor: pointer;
   font-size: ${({ fontSizeInPixels }) => fontSizeInPixels}px;
   font-weight: ${({ theme }) => theme.fonts.weight.bold};
   letter-spacing: 0.75em;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
   margin-top: ${({ marginTop }) => marginTop}px;
-  padding: 0;
-  padding-left: 0.75em;
+  padding: .2em;
+  padding-left: .85em;
   text-transform: uppercase;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.purple};
+  }
 `;
 export const Gauge = styled.div<{
   circleDiameter: number,
