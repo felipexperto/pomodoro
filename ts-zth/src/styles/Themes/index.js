@@ -4,6 +4,7 @@ const colors = {
   darkPurple: '#161a33',
   salmon: '#f87071',
   gray: '#4e526a',
+  lightGray: '#d8dffd',
 };
 
 const fonts = {
@@ -25,7 +26,11 @@ export const sizes = {
   phone: 576,
 };
 
-const zIndex = {};
+const zIndex = {
+  tabs: 1,
+  clockContent: 2,
+  clockGauge: 1,
+};
 
 const shadows = {};
 

@@ -9,7 +9,6 @@ export const MainTitle = styled.h1`
 export const Container = styled.div`
   margin: 0 auto;
   max-width: ${({ theme }) => theme.sizes.phone}px;
-  outline: 1px solid rgba(255,255,255,.1);
   padding-bottom: 2rem;
   padding-top: 2rem;
   width: 100%;

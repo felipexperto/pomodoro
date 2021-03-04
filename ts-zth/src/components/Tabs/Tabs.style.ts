@@ -4,6 +4,8 @@ export const TabsWrapper = styled.div`
   align-items: middle;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: ${({ theme }) => theme.zIndex.tabs};
 `;
 
 export const Tabs = styled.ol<{positionOfActiveItem: number}>`
