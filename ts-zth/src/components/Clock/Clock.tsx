@@ -9,19 +9,16 @@ function Clock(): JSX.Element {
   const [gaugeCircleDiameter, setGaugeCircleDiameter] = useState<number>(0);
   const [gaugeCircleRadius, setGaugeCircleRadius] = useState<number>(0);
 
+  const setGaugeDimensions = () => {
+    if (!gaugeRef.current || !gaugeRef.current.clientWidth) return;
+    const gaugeWrapperWidth = gaugeRef.current.clientWidth;
+    setGaugeCircleDiameter(gaugeWrapperWidth - 40);
+    setGaugeCircleRadius(gaugeCircleDiameter / 2);
+  };
+
   useEffect(() => {
-    setTimeout(function() {
-      if ('current' in gaugeRef) {
-        const { current } = gaugeRef;
-        const gaugeWrapperWidth = current?.clientWidth;
-        
-        if (gaugeWrapperWidth) {
-          setGaugeCircleDiameter(gaugeWrapperWidth - 32);
-          setGaugeCircleRadius(gaugeCircleDiameter / 2);
-        }
-      }
-    }, 3000)
-  }, [width]);
+    setGaugeDimensions();
+  }, [gaugeRef.current, width]);
 
   return (
     <S.ClockWrapper>

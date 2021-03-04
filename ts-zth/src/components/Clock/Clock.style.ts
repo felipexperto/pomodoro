@@ -12,21 +12,27 @@ export const Frame = styled.div`
   border-radius: 100rem;
   box-shadow: 40px 40px 45px 7px #151834, -70px -90px 100px 1px #282c59, 5px 5px 15px 5px rgb(0 0 0 / 0%);
   display: inline-block;
+  max-width: 380px;
   padding: 20px;
+  width: 100%;
 `;
 export const Inside = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.darkPurple};
   border-radius: 100rem;
   display: flex;
-  height: 380px;
   justify-content: center;
+  padding-top: 100%;
   position: relative;
-  width: 380px;
 `;
 export const Content = styled.div`
-  position: relative;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
   text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: ${({ theme }) => theme.zIndex.clockContent};
 `;
 export const Time = styled.div`
@@ -42,7 +48,7 @@ export const Button = styled.button`
   font-size: 1.4rem;
   font-weight: ${({ theme }) => theme.fonts.weight.bold};
   letter-spacing: 0.75em;
-  margin-top: 1rem;
+  margin: 1rem -0.75em 0 0;
   text-transform: uppercase;
 `;
 export const Gauge = styled.div<{
@@ -67,6 +73,8 @@ export const Gauge = styled.div<{
     stroke-dasharray: calc(3.14 * ${({ circleDiameter }) => circleDiameter});
     stroke-dashoffset: calc((3.14 * ${({ circleDiameter }) => circleDiameter}) * ${({ percentualPassed }) => percentualPassed});
     stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: center center;
     transition: 0.6s ease-out;
   }
 
