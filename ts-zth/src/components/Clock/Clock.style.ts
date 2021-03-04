@@ -35,20 +35,30 @@ export const Content = styled.div`
   transform: translateY(-50%);
   z-index: ${({ theme }) => theme.zIndex.clockContent};
 `;
-export const Time = styled.div`
+export const Time = styled.div<{
+  fontSizeInPixels: number,
+}>`
   color: ${({ theme }) => theme.colors.lightGray};
-  font-size: 6rem;
+  font-size: ${({ fontSizeInPixels }) => fontSizeInPixels}px;
   font-weight: ${({ theme }) => theme.fonts.weight.bolder};
 `;
-export const Button = styled.button`
+export const Button = styled.button<{
+  fontSizeInPixels: number,
+  marginTop: number,
+}>`
   appearance: none;
   background-color: transparent;
   border: 0;
   color: ${({ theme }) => theme.colors.lightGray};
-  font-size: 1.4rem;
+  font-size: ${({ fontSizeInPixels }) => fontSizeInPixels}px;
   font-weight: ${({ theme }) => theme.fonts.weight.bold};
   letter-spacing: 0.75em;
-  margin: 1rem -0.75em 0 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: ${({ marginTop }) => marginTop}px;
+  padding: 0;
+  padding-left: 0.75em;
   text-transform: uppercase;
 `;
 export const Gauge = styled.div<{
@@ -77,9 +87,6 @@ export const Gauge = styled.div<{
     transform-origin: center center;
     transition: 0.6s ease-out;
   }
-
-
-
 `;
 
 /*

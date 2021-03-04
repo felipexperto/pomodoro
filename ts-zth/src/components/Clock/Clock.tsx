@@ -18,6 +18,7 @@ function Clock(): JSX.Element {
 
   useEffect(() => {
     setGaugeDimensions();
+    console.log({gaugeCircleDiameter, gaugeCircleRadius});
   }, [gaugeRef.current, width]);
 
   return (
@@ -25,8 +26,17 @@ function Clock(): JSX.Element {
       <S.Frame>
         <S.Inside>
           <S.Content>
-            <S.Time>17:59</S.Time>
-            <S.Button>Pause</S.Button>
+            <S.Time
+              fontSizeInPixels={Math.round(gaugeCircleDiameter / 3.33)}
+            >
+              17:59
+            </S.Time>
+            <S.Button
+              fontSizeInPixels={Math.round(gaugeCircleDiameter / 12)}
+              marginTop={Math.round(gaugeCircleDiameter * 0.05)}
+            >
+              Pause
+            </S.Button>
           </S.Content>
           <S.Gauge
             circleDiameter={gaugeCircleDiameter}
