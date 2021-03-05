@@ -12,14 +12,23 @@ function Clock(): JSX.Element {
     longBreak: 1800,
   };
 
-  const [remainingTime, setRemainingTime] = useState(10);
+  const cyclesLength = [
+    cycles.pomodoro,
+    cycles.shortBreak,
+    cycles.pomodoro,
+    cycles.shortBreak,
+    cycles.pomodoro,
+    cycles.longBreak,
+  ]
+
+  const [remainingTime, setRemainingTime] = useState(cyclesLength[0]);
   const [remainingMinutes, setRemainingMinutes] = useState(0);
   const [remainingSeconds, setRemainingSeconds] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(false);
   const [pomodoroCycles, setPomodoroCycles] = useState(0);
 
-  const getRemainingTimeInMinutes = (time: number) => Math.floor(time / 60);
-  const getRemainingTimeInSeconds = (time: number) => time % 60;
+  const formatRemainingTimeInMinutes = (time: number) => Math.floor(time / 60);
+  const formatRemainingTimeInSeconds = (time: number) => time % 60;
 
   const handleClick = () => {
     setIsTimeRunning(!isTimeRunning);
@@ -39,9 +48,32 @@ function Clock(): JSX.Element {
   }, [isTimeRunning]);
 
   useEffect(() => {
-    setRemainingMinutes(getRemainingTimeInMinutes(remainingTime));
-    setRemainingSeconds(getRemainingTimeInSeconds(remainingTime));
+    setRemainingMinutes(formatRemainingTimeInMinutes(remainingTime));
+    setRemainingSeconds(formatRemainingTimeInSeconds(remainingTime));
+    const hasCycleEnded = remainingTime === 0;
+
+    if (hasCycleEnded) {
+      setIsTimeRunning(false);
+      setPomodoroCycles(previousState => previousState + 1);
+    }
   }, [remainingTime]);
+
+  useEffect(() => {
+    const isFirstCycle = pomodoroCycles < 1;
+    const shouldRestart = pomodoroCycles > 5;
+
+    if (!isFirstCycle) {
+      if (shouldRestart) {
+        setRemainingTime(cyclesLength[0]);
+        setIsTimeRunning(false);
+        setPomodoroCycles(0);
+        return;
+      }
+      setRemainingTime(cyclesLength[pomodoroCycles]);
+      setIsTimeRunning(true);
+    }
+  }, [pomodoroCycles]);
+
 
   const gaugeRef = useRef<HTMLDivElement>(null);
   const [gaugeCircleDiameter, setGaugeCircleDiameter] = useState<number>(0);
