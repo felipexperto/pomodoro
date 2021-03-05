@@ -7,9 +7,9 @@ function Clock(): JSX.Element {
   const { width } = useWindowSize();
 
   const cycles = {
-    pomodoro: 1500,
-    shortBreak: 300,
-    longBreak: 1800,
+    pomodoro: 15,
+    shortBreak: 3,
+    longBreak: 18,
   };
 
   const cyclesLength = [
@@ -26,6 +26,14 @@ function Clock(): JSX.Element {
   const [remainingSeconds, setRemainingSeconds] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(false);
   const [pomodoroCycles, setPomodoroCycles] = useState(0);
+
+  const stopClock = () => setIsTimeRunning(false);
+  const playClock = () => setIsTimeRunning(true);
+  const restartClock = () => {
+    setRemainingTime(cyclesLength[0]);
+    stopClock();
+    setPomodoroCycles(0);
+  };
 
   const formatRemainingTimeInMinutes = (time: number) => Math.floor(time / 60);
   const formatRemainingTimeInSeconds = (time: number) => time % 60;
@@ -50,10 +58,10 @@ function Clock(): JSX.Element {
   useEffect(() => {
     setRemainingMinutes(formatRemainingTimeInMinutes(remainingTime));
     setRemainingSeconds(formatRemainingTimeInSeconds(remainingTime));
-    const hasCycleEnded = remainingTime === 0;
 
+    const hasCycleEnded = remainingTime === 0;
     if (hasCycleEnded) {
-      setIsTimeRunning(false);
+      stopClock();
       setPomodoroCycles(previousState => previousState + 1);
     }
   }, [remainingTime]);
@@ -64,13 +72,11 @@ function Clock(): JSX.Element {
 
     if (!isFirstCycle) {
       if (shouldRestart) {
-        setRemainingTime(cyclesLength[0]);
-        setIsTimeRunning(false);
-        setPomodoroCycles(0);
+        restartClock();
         return;
       }
       setRemainingTime(cyclesLength[pomodoroCycles]);
-      setIsTimeRunning(true);
+      playClock();
     }
   }, [pomodoroCycles]);
 
