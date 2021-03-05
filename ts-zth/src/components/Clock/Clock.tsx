@@ -22,10 +22,11 @@ function Clock(): JSX.Element {
   ]
 
   const [remainingTime, setRemainingTime] = useState(cyclesLength[0]);
-  const [remainingMinutes, setRemainingMinutes] = useState(0);
-  const [remainingSeconds, setRemainingSeconds] = useState(0);
+  const [remainingMinutes, setRemainingMinutes] = useState<number | string>(0);
+  const [remainingSeconds, setRemainingSeconds] = useState<number | string>(0);
   const [isTimeRunning, setIsTimeRunning] = useState(false);
   const [pomodoroCycles, setPomodoroCycles] = useState(0);
+  const [gaugePercentual, setGaugePercentual] = useState(0);
 
   const stopClock = () => setIsTimeRunning(false);
   const playClock = () => setIsTimeRunning(true);
@@ -35,8 +36,16 @@ function Clock(): JSX.Element {
     setPomodoroCycles(0);
   };
 
-  const formatRemainingTimeInMinutes = (time: number) => Math.floor(time / 60);
-  const formatRemainingTimeInSeconds = (time: number) => time % 60;
+  const formatRemainingTimeInMinutes = (time: number) => {
+    return time.toString().length > 1 
+    ? Math.floor(time / 60)
+    : `0${Math.floor(time / 60)}`;
+  }
+  const formatRemainingTimeInSeconds = (time: number) => {
+    return time.toString().length > 1 
+    ? time % 60
+    : `0${time % 60}`;
+  }
 
   const handleClick = () => {
     setIsTimeRunning(!isTimeRunning);
@@ -58,6 +67,7 @@ function Clock(): JSX.Element {
   useEffect(() => {
     setRemainingMinutes(formatRemainingTimeInMinutes(remainingTime));
     setRemainingSeconds(formatRemainingTimeInSeconds(remainingTime));
+    setGaugePercentual( (100 - (remainingTime * 100 / cyclesLength[pomodoroCycles])) / 100 );
 
     const hasCycleEnded = remainingTime === 0;
     if (hasCycleEnded) {
@@ -116,7 +126,7 @@ function Clock(): JSX.Element {
           </S.Content>
           <S.Gauge
             circleDiameter={gaugeCircleDiameter}
-            percentualPassed={.10}  
+            percentualPassed={gaugePercentual}  
             ref={gaugeRef}
           >
             { gaugeCircleRadius > 0 && (
