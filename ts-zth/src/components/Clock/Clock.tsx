@@ -7,8 +7,11 @@ import React, {
   SetStateAction } from 'react';
 import { func } from 'prop-types';
 
-import useWindowSize from '../../hooks/useWindowSize';
-import cyclesContext from '../../contexts/cycles.context';
+import useWindowSize from 'hooks/useWindowSize';
+import cyclesContext from 'contexts/cycles.context';
+import { 
+  formatRemainingTimeInMinutes,
+  formatRemainingTimeInSeconds } from 'utils/helpers';
 import * as S from './Clock.style';
 
 type ClockProps = {
@@ -36,10 +39,6 @@ function Clock({ setPomodoroCycleType }: ClockProps): JSX.Element {
     setRemainingTime(orderedCycles[pomodoroCycle].duration);
     setPomodoroCycleType(orderedCycles[pomodoroCycle].type);
   };
-
-  const formatClockTime = (time: number) => time.toString().length > 1 ? time : `0${time}`;
-  const formatRemainingTimeInMinutes = (time: number) => formatClockTime(Math.floor(time / 60));
-  const formatRemainingTimeInSeconds = (time: number) => formatClockTime(time % 60);
 
   const handleClick = () => {
     setIsTimeRunning(!isTimeRunning);
@@ -83,7 +82,6 @@ function Clock({ setPomodoroCycleType }: ClockProps): JSX.Element {
       playClock();
     }
   }, [pomodoroCycles]);
-
 
   const gaugeRef = useRef<HTMLDivElement>(null);
   const [gaugeCircleDiameter, setGaugeCircleDiameter] = useState<number>(0);

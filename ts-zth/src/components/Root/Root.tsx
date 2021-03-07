@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { element } from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 
-import { GlobalStyles, theme } from '../../styles';
+import { GlobalStyles, theme } from 'styles';
 
 type RootProps = {
   children: ReactNode

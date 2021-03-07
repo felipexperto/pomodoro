@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Tabs from '../Tabs/Tabs';
-import Clock from '../Clock/Clock';
+import Tabs from 'components/Tabs/Tabs';
+import Clock from 'components/Clock/Clock';
 import * as S from './App.style';
 
 function App(): JSX.Element {

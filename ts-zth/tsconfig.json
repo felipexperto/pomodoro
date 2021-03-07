@@ -20,6 +20,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "sourceMap": true,
+    "baseUrl": "src",
     "rootDir": "src",
     "outDir": "build"
   },
