@@ -1,27 +1,58 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react';
+import { func } from 'prop-types';
 
 import useWindowSize from '../../hooks/useWindowSize';
 import * as S from './Clock.style';
 
-function Clock(): JSX.Element {
+type ClockProps = {
+  setPomodoroCycleType: Dispatch<SetStateAction<number>>,
+}
+function Clock({ setPomodoroCycleType }: ClockProps): JSX.Element {
   const { width } = useWindowSize();
 
   const cycles = {
-    pomodoro: 15,
-    shortBreak: 3,
-    longBreak: 18,
+    pomodoro: {
+      duration: 5,
+      type: 1,
+    },
+    shortBreak: {
+      duration: 3,
+      type: 2,
+    },
+    longBreak: {
+      duration: 8,
+      type: 3,
+    },
   };
 
-  const cyclesLength = [
-    cycles.pomodoro,
-    cycles.shortBreak,
-    cycles.pomodoro,
-    cycles.shortBreak,
-    cycles.pomodoro,
-    cycles.longBreak,
-  ]
+  const orderedCycles = [
+    {
+      duration: cycles.pomodoro.duration,
+      type: cycles.pomodoro.type,
+    },
+    {
+      duration: cycles.shortBreak.duration,
+      type: cycles.shortBreak.type,
+    },
+    {
+      duration: cycles.pomodoro.duration,
+      type: cycles.pomodoro.type,
+    },
+    {
+      duration:cycles.shortBreak.duration,
+      type: cycles.shortBreak.type,
+    },
+    {
+      duration: cycles.pomodoro.duration,
+      type: cycles.pomodoro.type,
+    },
+    {
+      duration: cycles.longBreak.duration,
+      type: cycles.longBreak.type,
+    }
+  ];
 
-  const [remainingTime, setRemainingTime] = useState(cyclesLength[0]);
+  const [remainingTime, setRemainingTime] = useState(orderedCycles[0].duration);
   const [remainingMinutes, setRemainingMinutes] = useState<number | string>(0);
   const [remainingSeconds, setRemainingSeconds] = useState<number | string>(0);
   const [isTimeRunning, setIsTimeRunning] = useState(false);
@@ -31,21 +62,18 @@ function Clock(): JSX.Element {
   const stopClock = () => setIsTimeRunning(false);
   const playClock = () => setIsTimeRunning(true);
   const restartClock = () => {
-    setRemainingTime(cyclesLength[0]);
+    updateCycleInformation(0);
     stopClock();
     setPomodoroCycles(0);
   };
+  const updateCycleInformation = (pomodoroCycle: number) => {
+    setRemainingTime(orderedCycles[pomodoroCycle].duration);
+    setPomodoroCycleType(orderedCycles[pomodoroCycle].type);
+  };
 
-  const formatRemainingTimeInMinutes = (time: number) => {
-    return time.toString().length > 1 
-    ? Math.floor(time / 60)
-    : `0${Math.floor(time / 60)}`;
-  }
-  const formatRemainingTimeInSeconds = (time: number) => {
-    return time.toString().length > 1 
-    ? time % 60
-    : `0${time % 60}`;
-  }
+  const formatClockTime = (time: number) => time.toString().length > 1 ? time : `0${time}`;
+  const formatRemainingTimeInMinutes = (time: number) => formatClockTime(Math.floor(time / 60));
+  const formatRemainingTimeInSeconds = (time: number) => formatClockTime(time % 60);
 
   const handleClick = () => {
     setIsTimeRunning(!isTimeRunning);
@@ -67,7 +95,7 @@ function Clock(): JSX.Element {
   useEffect(() => {
     setRemainingMinutes(formatRemainingTimeInMinutes(remainingTime));
     setRemainingSeconds(formatRemainingTimeInSeconds(remainingTime));
-    setGaugePercentual( (100 - (remainingTime * 100 / cyclesLength[pomodoroCycles])) / 100 );
+    setGaugePercentual( (100 - (remainingTime * 100 / orderedCycles[pomodoroCycles].duration)) / 100 );
 
     const hasCycleEnded = remainingTime === 0;
     if (hasCycleEnded) {
@@ -85,7 +113,7 @@ function Clock(): JSX.Element {
         restartClock();
         return;
       }
-      setRemainingTime(cyclesLength[pomodoroCycles]);
+      updateCycleInformation(pomodoroCycles);
       playClock();
     }
   }, [pomodoroCycles]);
@@ -141,6 +169,10 @@ function Clock(): JSX.Element {
       </S.Frame>
     </S.ClockWrapper>
   );
+}
+
+Clock.propTypes = {
+  setPomodoroCycleType: func,
 }
 
 export default Clock;
