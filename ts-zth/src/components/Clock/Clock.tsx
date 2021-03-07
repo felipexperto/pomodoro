@@ -1,7 +1,14 @@
-import React, { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction } from 'react';
 import { func } from 'prop-types';
 
 import useWindowSize from '../../hooks/useWindowSize';
+import cyclesContext from '../../contexts/cycles.context';
 import * as S from './Clock.style';
 
 type ClockProps = {
@@ -9,48 +16,7 @@ type ClockProps = {
 }
 function Clock({ setPomodoroCycleType }: ClockProps): JSX.Element {
   const { width } = useWindowSize();
-
-  const cycles = {
-    pomodoro: {
-      duration: 5,
-      type: 1,
-    },
-    shortBreak: {
-      duration: 3,
-      type: 2,
-    },
-    longBreak: {
-      duration: 8,
-      type: 3,
-    },
-  };
-
-  const orderedCycles = [
-    {
-      duration: cycles.pomodoro.duration,
-      type: cycles.pomodoro.type,
-    },
-    {
-      duration: cycles.shortBreak.duration,
-      type: cycles.shortBreak.type,
-    },
-    {
-      duration: cycles.pomodoro.duration,
-      type: cycles.pomodoro.type,
-    },
-    {
-      duration:cycles.shortBreak.duration,
-      type: cycles.shortBreak.type,
-    },
-    {
-      duration: cycles.pomodoro.duration,
-      type: cycles.pomodoro.type,
-    },
-    {
-      duration: cycles.longBreak.duration,
-      type: cycles.longBreak.type,
-    }
-  ];
+  const orderedCycles = useContext(cyclesContext);
 
   const [remainingTime, setRemainingTime] = useState(orderedCycles[0].duration);
   const [remainingMinutes, setRemainingMinutes] = useState<number | string>(0);
