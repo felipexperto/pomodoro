@@ -19,7 +19,7 @@ const fonts = {
   },
 };
 
-export const sizes = {
+const sizes = {
   largeDesktop: 1200,
   desktop: 992,
   tablet: 768,
