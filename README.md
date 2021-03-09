@@ -6,6 +6,16 @@ O conceito e layout da aplicação vieram do site FrontendMentor e você [pode c
 
 Este projeto utilizou como boilerplate o `create-react-app` para Typescript.
 
+![React](https://github.com//aleen42/badges/raw/master/src/react.svg)
+![Tamanho do repositório](https://img.shields.io/github/repo-size/felipexperto/pomodoro)
+![Quantidade de linhas de código do repositório](https://img.shields.io/tokei/lines/github/felipexperto/pomodoro)
+![Quantidades de linguagens no repositório](https://img.shields.io/github/languages/count/felipexperto/pomodoro)
+![Linguagem principal do repositório](https://img.shields.io/github/languages/top/felipexperto/pomodoro)
+
+![Tipo de licença do projeto](https://img.shields.io/github/license/felipexperto/pomodoro)
+![Versão do projeto no package.json](https://img.shields.io/github/package-json/v/felipexperto/pomodoro)
+![Data do último commit](https://img.shields.io/github/last-commit/felipexperto/pomodoro)
+
 
 
 ## **Stack**
