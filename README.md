@@ -1,4 +1,4 @@
-# **Typescript Pomodo Clock**
+# **Typescript Pomodoro Clock**
 
 A ideia deste projeto é explorar um pouco sobre Typescript frente à um desafio real.
 
