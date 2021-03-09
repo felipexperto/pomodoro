@@ -2,15 +2,15 @@ import { createContext } from 'react';
 
 const cycles = {
   pomodoro: {
-    duration: 5,
+    duration: 1500,
     type: 1,
   },
   shortBreak: {
-    duration: 3,
+    duration: 300,
     type: 2,
   },
   longBreak: {
-    duration: 8,
+    duration: 900,
     type: 3,
   },
 };
